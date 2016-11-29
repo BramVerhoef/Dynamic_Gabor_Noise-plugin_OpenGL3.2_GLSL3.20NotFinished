@@ -51,7 +51,7 @@ void DynamicGaborNoise::describeComponent(ComponentInfo &info) {
     info.setSignature("stimulus/dynamic_gabor_noise");
     info.setDisplayName("Dynamic Gabor Noise");
     info.setDescription("A Gabor surrounded by Gabor noise.");
-
+    
     info.addParameter(HORIZONTALRESOLUTION,"1980");
     info.addParameter(VERTICALRESOLUTION,"1080");
     info.addParameter(VIEWINGDISTANCE,"300");
@@ -76,27 +76,27 @@ void DynamicGaborNoise::describeComponent(ComponentInfo &info) {
 
 DynamicGaborNoise::DynamicGaborNoise(const ParameterValueMap &parameters) :
 StandardDynamicStimulus(parameters),
-    horizontalResolution(parameters[HORIZONTALRESOLUTION]),
-    verticalResolution(registerVariable(parameters[VERTICALRESOLUTION])),
-    viewingDistance(registerVariable(parameters[VIEWINGDISTANCE])),
-    horizontalScreenSize(parameters[HORIZONTALSCREENSIZE]),
-    textureSize(registerVariable(parameters[TEXTURESIZE])),
-    noise_nImpulses(parameters[NOISE_NIMPULSES]),
-    noise_spatialFrequency(registerVariable(parameters[NOISE_SPATIALFREQUENCY])),
-    noise_bandWidth(registerVariable(parameters[NOISE_BANDWIDTH])),
-    noise_timeSpeedUp(parameters[NOISE_TIMESPEEDUP]),
-    noise_timeSpeedUpSigma(registerVariable(parameters[NOISE_TIMESPEEDUPSIGMA])),
-    noise_contrast(registerVariable(parameters[NOISE_CONTRAST])),
-    azimuth(parameters[AZIMUTH]),
-    elevation(registerVariable(parameters[ELEVATION])),
-    sigma(registerVariable(parameters[SIGMA])),
-    orientation(parameters[ORIENTATION]),
-    spatialFrequency(registerVariable(parameters[SPATIALFREQUENCY])),
-    phaseOffset(registerVariable(parameters[PHASEOFFSET])),
-    contrast(registerVariable(parameters[CONTRAST])),
-    transparency(registerVariable(parameters[TRANSPARENCY])),
-    previousTime(-1),
-    currentTime(-1)
+horizontalResolution(parameters[HORIZONTALRESOLUTION]),
+verticalResolution(registerVariable(parameters[VERTICALRESOLUTION])),
+viewingDistance(registerVariable(parameters[VIEWINGDISTANCE])),
+horizontalScreenSize(parameters[HORIZONTALSCREENSIZE]),
+textureSize(registerVariable(parameters[TEXTURESIZE])),
+noise_nImpulses(parameters[NOISE_NIMPULSES]),
+noise_spatialFrequency(registerVariable(parameters[NOISE_SPATIALFREQUENCY])),
+noise_bandWidth(registerVariable(parameters[NOISE_BANDWIDTH])),
+noise_timeSpeedUp(parameters[NOISE_TIMESPEEDUP]),
+noise_timeSpeedUpSigma(registerVariable(parameters[NOISE_TIMESPEEDUPSIGMA])),
+noise_contrast(registerVariable(parameters[NOISE_CONTRAST])),
+azimuth(parameters[AZIMUTH]),
+elevation(registerVariable(parameters[ELEVATION])),
+sigma(registerVariable(parameters[SIGMA])),
+orientation(parameters[ORIENTATION]),
+spatialFrequency(registerVariable(parameters[SPATIALFREQUENCY])),
+phaseOffset(registerVariable(parameters[PHASEOFFSET])),
+contrast(registerVariable(parameters[CONTRAST])),
+transparency(registerVariable(parameters[TRANSPARENCY])),
+previousTime(-1),
+currentTime(-1)
 {
     
     double halfScreenVisualDeg = 180.0 * std::atan((horizontalScreenSize->getValue().getFloat() / 2.0) / viewingDistance->getValue().getFloat()) / M_PI;
@@ -119,11 +119,11 @@ void DynamicGaborNoise::load(shared_ptr<StimulusDisplay> display) {
         return;
     
     //for(int i = 0; i < display->getNContexts(); ++i) {
-		
-        
-        OpenGLContextLock ctxLock = display->setCurrent(0);
-
-
+    
+    
+    OpenGLContextLock ctxLock = display->setCurrent(0);
+    
+    
     init();
     //}
     
@@ -131,18 +131,18 @@ void DynamicGaborNoise::load(shared_ptr<StimulusDisplay> display) {
 }
 
 /*
-void DynamicGaborNoise::unload(shared_ptr<StimulusDisplay> display) {
-    if (!loaded)
-        return;
-    
-    for (int i = 0; i < display->getNContexts(); i++) {
-        OpenGLContextLock ctxLock = display->setCurrent(i);
-        }
-    
-       
-    loaded = false;
-}
-*/
+ void DynamicGaborNoise::unload(shared_ptr<StimulusDisplay> display) {
+ if (!loaded)
+ return;
+ 
+ for (int i = 0; i < display->getNContexts(); i++) {
+ OpenGLContextLock ctxLock = display->setCurrent(i);
+ }
+ 
+ 
+ loaded = false;
+ }
+ */
 
 
 
@@ -232,7 +232,7 @@ void DynamicGaborNoise::load_shaders()
     }
     
     const GLchar* vertex_shader_source = read_shader_source_from_file("Dynamic_Gabor_Noise.vs");
-    glShaderSource(vertex_shader, 1, &vertex_shader_source, NULL); 
+    glShaderSource(vertex_shader, 1, &vertex_shader_source, NULL);
     delete [] vertex_shader_source;
     compile_shader(vertex_shader);
     
@@ -260,7 +260,7 @@ void DynamicGaborNoise::load_shaders()
 
 uint DynamicGaborNoise::getSeed()
 {
-  return unsigned (time(0));
+    return unsigned (time(0));
     
 };
 
@@ -390,15 +390,15 @@ void DynamicGaborNoise::init()
     //glBindVertexArray(VAO);
     
     /*
-    // Build the vertex buffer
-    glGenBuffers(1, &bufferObject);
-    glBindBuffer(GL_ARRAY_BUFFER, bufferObject);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices) , vertices, GL_STATIC_DRAW);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
-    
-    load_shaders();
-    gabor_noise_begin();*/
+     // Build the vertex buffer
+     glGenBuffers(1, &bufferObject);
+     glBindBuffer(GL_ARRAY_BUFFER, bufferObject);
+     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices) , vertices, GL_STATIC_DRAW);
+     glEnableVertexAttribArray(0);
+     glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
+     
+     load_shaders();
+     gabor_noise_begin();*/
     
 }
 
@@ -411,43 +411,43 @@ void DynamicGaborNoise::validateParameters() const {
     }
     
     // make one for the maximum number of impulses
-
+    
 }
 
 
 /*void DynamicGaborNoise::computeDotSizeToPixels(shared_ptr<StimulusDisplay> display) {
-    dotSizeToPixels.clear();
-    
-    GLdouble xMin, xMax, yMin, yMax;
-    GLint width, height;
-
-    display->getDisplayBounds(xMin, xMax, yMin, yMax);
-    
-    for (int i = 0; i < display->getNContexts(); i++) {
-        OpenGLContextLock ctxLock = display->setCurrent(i);
-        display->getCurrentViewportSize(width, height);
-        dotSizeToPixels.push_back(GLdouble(width) / (xMax - xMin));
-    }
-}*/
+ dotSizeToPixels.clear();
+ 
+ GLdouble xMin, xMax, yMin, yMax;
+ GLint width, height;
+ 
+ display->getDisplayBounds(xMin, xMax, yMin, yMax);
+ 
+ for (int i = 0; i < display->getNContexts(); i++) {
+ OpenGLContextLock ctxLock = display->setCurrent(i);
+ display->getCurrentViewportSize(width, height);
+ dotSizeToPixels.push_back(GLdouble(width) / (xMax - xMin));
+ }
+ }*/
 
 
 void DynamicGaborNoise::drawFrame(shared_ptr<StimulusDisplay> display) {
     
     /*if (display->getCurrentContextIndex() == 0) {
-        currentTime = double(getElapsedTime()) / 1000000.0; // in seconds
-        if ((previousTime != -1) && (previousTime != currentTime)) {
-            updateDots();
-        }
-        previousTime = currentTime;
-    }*/
+     currentTime = double(getElapsedTime()) / 1000000.0; // in seconds
+     if ((previousTime != -1) && (previousTime != currentTime)) {
+     updateDots();
+     }
+     previousTime = currentTime;
+     }*/
     
     currentTime = double(getElapsedTime()) / 1000000.0; // in seconds
     double gabor_noise_2d_time = noise_timeSpeedUp->getValue().getFloat() * (currentTime/60.0);
     glUniform1f(uniformTimeLocation, gabor_noise_2d_time);
     
     //if (frame == detection_Gabor_onsetFrame) {
-        glUniform1f(transparencyLocation, transparency->getValue().getFloat());
-        glUniform1f(contrastLocation, contrast->getValue().getFloat());
+    glUniform1f(transparencyLocation, transparency->getValue().getFloat());
+    glUniform1f(contrastLocation, contrast->getValue().getFloat());
     //}
     
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
@@ -456,22 +456,22 @@ void DynamicGaborNoise::drawFrame(shared_ptr<StimulusDisplay> display) {
     // Add 10 render frames (glFinish) without swapping the buffer to "warm up" (= allow the gpu to detect and implement any necessary optimizations) the gpu
     
     /*if (frame <= extraFrames){
-        glFinish();
-    }
-    else if (frame > extraFrames) {
-        if (frame == extraFrames + 1){
-            startTime = glfwGetTime();
-        }
-        glfwSwapBuffers(window);
-    }*/
+     glFinish();
+     }
+     else if (frame > extraFrames) {
+     if (frame == extraFrames + 1){
+     startTime = glfwGetTime();
+     }
+     glfwSwapBuffers(window);
+     }*/
 }
 
 
 Datum DynamicGaborNoise::getCurrentAnnounceDrawData() {
     boost::mutex::scoped_lock locker(stim_lock);
-
+    
     Datum announceData = StandardDynamicStimulus::getCurrentAnnounceDrawData();
-
+    
     announceData.addElement(STIM_TYPE, "dynamic_gabor_noise");
     announceData.addElement(HORIZONTALRESOLUTION, horizontalResolution->getValue().getInteger());
     announceData.addElement(VERTICALRESOLUTION, verticalResolution->getValue().getInteger());
